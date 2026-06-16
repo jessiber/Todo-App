@@ -34,7 +34,7 @@ src/app/
 
 ```bash
 npm install
-npm start
+ng serve 
 ```
 
 Danach ist die App unter `http://localhost:4200` erreichbar.
@@ -60,12 +60,6 @@ readonly filteredTodos = computed(() => { ... });
 - `deleteTodo()` entfernt einen Eintrag.
 - `deleteAllTodos()` leert die komplette Liste.
 - `progressPercent()` berechnet den Fortschritt für die Anzeige.
-
-## Tests
-
-```bash
-npm test
-```
 
 ## Repository
 
