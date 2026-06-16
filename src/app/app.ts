@@ -1,12 +1,11 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+
+import { TodoAppComponent } from './todo/todo-app.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.html',
+  imports: [TodoAppComponent],
+  templateUrl: './app.root.html',
   styleUrl: './app.css'
 })
-export class App {
-  protected readonly title = signal('TodoApp');
-}
+export class App { }

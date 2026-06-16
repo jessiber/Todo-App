@@ -1,59 +1,74 @@
 # TodoApp
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.14.
+Eine kleine Todo-Anwendung mit Angular 21. Die App zeigt, wie lokaler UI-Zustand mit `signal()` und abgeleitete Werte mit `computed()` verwaltet werden können.
 
-## Development server
+## Funktionen
 
-To start a local development server, run:
+- Todos hinzufügen
+- Todos als erledigt markieren
+- Nach `Alle`, `Offen` und `Erledigt` filtern
+- Einzelne Todos oder die ganze Liste löschen
+- Fortschritt in Prozent anzeigen
 
-```bash
-ng serve
+## Technologie
+
+- Angular 21
+- Standalone Components
+- Signals (`signal`, `computed`)
+- Template mit `@for` und `@empty`
+- Formularbindung mit `ngModel`
+
+## Projektstruktur
+
+```text
+src/app/
+├── app.ts
+├── app.html
+└── todo/
+    ├── todo-app.component.ts
+    ├── todo-app.component.html
+    └── todo-app.component.css
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Installation und Start
 
 ```bash
-ng generate component component-name
+npm install
+npm start
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Danach ist die App unter `http://localhost:4200` erreichbar.
+
+## Wichtige Logik
+
+Die Hauptlogik liegt in `src/app/todo/todo-app.component.ts`:
+
+```ts
+readonly todos = signal<Todo[]>([]);
+readonly activeFilter = signal<TodoFilter>('all');
+readonly filteredTodos = computed(() => { ... });
+```
+
+- `todos` speichert alle Aufgaben.
+- `activeFilter` speichert den aktuell gewählten Filter.
+- `filteredTodos` berechnet automatisch die sichtbaren Einträge.
+
+## Kurz erklärt
+
+- Neue Todos werden über `addTodo()` angelegt.
+- Der Status eines Todos wird über die Checkbox geändert.
+- `deleteTodo()` entfernt einen Eintrag.
+- `deleteAllTodos()` leert die komplette Liste.
+- `progressPercent()` berechnet den Fortschritt für die Anzeige.
+
+## Tests
 
 ```bash
-ng generate --help
+npm test
 ```
 
-## Building
+## Repository
 
-To build the project run:
+GitHub: https://github.com/jessiber/Todo-App.git
 
-```bash
-ng build
-```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
