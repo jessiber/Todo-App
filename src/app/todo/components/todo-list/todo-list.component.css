@@ -1,0 +1,80 @@
+/* Grundlayout der Liste */
+.todo-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Einzelnes Todo-Element */
+.todo-list__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+/* Stil für erledigte Todos */
+.todo-list__item--done {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+/* Zeile mit Checkbox + Text */
+.todo-list__label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Container für Buttons (normal und edit) */
+.todo-list__actions,
+.todo-list__edit-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+/* Reset für Checkbox-Abstand */
+.todo-list__checkbox {
+    margin: 0;
+}
+
+/* Eingabefeld im Bearbeitungsmodus */
+.todo-list__input {
+    border: 1px solid #cbd5e1;
+    border-radius: 0.5rem;
+    padding: 0.55rem 0.75rem;
+    min-height: 2.5rem;
+    box-sizing: border-box;
+}
+
+/* Basis-Button-Design */
+.todo-list__button {
+    border: 1px solid #cbd5e1;
+    background: #fff;
+    border-radius: 0.5rem;
+    padding: 0.45rem 0.8rem;
+    cursor: pointer;
+    min-height: 2.5rem;
+}
+
+/* Primär-Button (Speichern) */
+.todo-list__button--primary {
+    border-color: #2563eb;
+    background: #2563eb;
+    color: #fff;
+}
+
+/* Danger-Button (Löschen) */
+.todo-list__button--danger {
+    border-color: #b91c1c;
+    color: #b91c1c;
+}
+
+/* Text, wenn die Liste leer ist */
+.todo-list__empty {
+    color: #475569;
+    padding: 0.5rem 0;
+}

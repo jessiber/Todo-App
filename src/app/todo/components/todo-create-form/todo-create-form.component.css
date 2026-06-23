@@ -1,0 +1,45 @@
+/* Container des Erfassungsformulars */
+.todo-create {
+    margin-bottom: 1rem;
+}
+
+/* Label über dem Input */
+.todo-create__label {
+    display: inline-block;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+}
+
+/* Input und Button in einer Zeile */
+.todo-create__row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: stretch;
+}
+
+/* Texteingabe für das neue Todo */
+.todo-create__input {
+    flex: 1;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.5rem;
+    padding: 0.55rem 0.75rem;
+    min-height: 2.5rem;
+    box-sizing: border-box;
+}
+
+/* Primär-Button zum Hinzufügen */
+.todo-create__button {
+    border: 1px solid #2563eb;
+    background: #2563eb;
+    color: #fff;
+    border-radius: 0.5rem;
+    padding: 0.45rem 0.8rem;
+    cursor: pointer;
+    min-height: 2.5rem;
+}
+
+/* Sichtbarer Fokus für die Tastaturbedienung */
+.todo-create__button:focus {
+    outline: #0000;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.5);
+}

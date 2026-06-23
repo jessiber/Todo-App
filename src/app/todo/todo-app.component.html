@@ -1,103 +1,15 @@
 <section class="todo-app">
-    <!-- Header mit Titel und aktuellem Datum -->
-    <header class="todo-app__header">
-        <h1 class="todo-app__title">Todo App</h1>
-        <p class="todo-app__date">Heute: {{ today | date:'dd.MM.yyyy' }}</p>
-    </header>
+    <app-todo-header [today]="today" [totalTasks]="totalTasks()" [visibleTasks]="filteredTodos().length" />
 
-    <!-- Todo-Statistiken -->
-    <div class="todo-app__stats">
-        <p class="todo-app__stat">Anzahl Todos: {{ totalTasks() }}</p>
-        <p class="todo-app__stat">Sichtbar: {{ filteredTodos().length }}</p>
-    </div>
+    <app-todo-create-form (addTodo)="addTodo($event)" />
 
-    <!-- Todo-Formular -->
-    <div class="todo-app__form">
-        <label class="todo-app__label" for="todo-input">Neues Todo</label>
-        <div class="todo-app__input-row">
-            <input class="todo-app__input" id="todo-input" #todoInput type="text" placeholder="Todo eingeben" />
-            <button class="todo-app__button todo-app__button--primary" type="button"
-                (click)="addTodo(todoInput)">Hinzufügen</button>
-        </div>
-    </div>
+    <app-todo-filter-bar [activeFilter]="activeFilter()" [searchTerm]="searchTerm()" (filterChange)="setFilter($event)"
+        (markAllDone)="setFilterAllDone()" (markAllOpen)="setFilterNoneDone()" (clearAll)="deleteAllTodos()"
+        (clearDone)="deleteAllDoneTodos()" (searchTermChange)="setSearchTerm($event)" />
 
-    <!-- Filter-Buttons -->
-    <div class="todo-app__filters" aria-label="Todo-Filter">
-        <button type="button" class="todo-app__button todo-app__button--filter"
-            [class.todo-app__button--active]="activeFilter() === 'all'" (click)="setFilter('all')">
-            Alle
-        </button>
-        <button type="button" class="todo-app__button todo-app__button--filter"
-            [class.todo-app__button--active]="activeFilter() === 'open'" (click)="setFilter('open')">
-            Offen
-        </button>
-        <button type="button" class="todo-app__button todo-app__button--filter"
-            [class.todo-app__button--active]="activeFilter() === 'done'" (click)="setFilter('done')">
-            Erledigt
-        </button>
-        <button type="button" class="todo-app__button todo-app__filter-button-alldone" (click)="setFilterAllDone()">
-            Alle erledigen
-        </button>
-        <button type="button" class="todo-app__button todo-app__button--danger" (click)="setFilterNoneDone()">
-            Alle nicht erledigt
-        </button>
-        <button class="todo-app__button todo-app__button--danger" type="button" (click)="deleteAllTodos()">
-            Alle löschen
-        </button>
-        <button class="todo-app__button todo-app__button--danger" type="button" (click)="deleteAllDoneTodos()">
-            Alle erledigten löschen
-        </button>
+    <app-todo-list [todos]="filteredTodos()" [editingId]="editingId()" [editDraft]="editDraft()"
+        (toggleDone)="toggleTodoDone($event)" (startEdit)="startEdit($event)" (editDraftChange)="editDraft.set($event)"
+        (saveEdit)="saveEdit($event)" (cancelEdit)="cancelEdit()" (deleteTodo)="deleteTodo($event)" />
 
-         <!-- Suchfeld für die Todo-Liste -->
-        <div class="todo-app__search">
-            <label class="todo-app__label" for="search-input">Suche Todos</label>
-            <div class="todo-app__input-row">
-                <input class="todo-app__input" id="search-input" type="text" placeholder="Todo suchen"
-                    [ngModel]="searchTerm()" (ngModelChange)="setSearchTerm($event)" />
-                <button class="todo-app__button todo-app__button--primary" type="button"
-                    (click)="setSearchTerm(searchTerm())">Suchen</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Todo-Liste -->
-    <ul class="todo-app__list">
-        @for (todo of filteredTodos(); track todo.id) {
-        <li class="todo-app__item" [class.todo-app__item--done]="todo.done">
-            @if (editingId() === todo.id) {
-            <div class="todo-app__input-row">
-                <input class="todo-app__input" type="text" [ngModel]="editDraft()"
-                    (ngModelChange)="editDraft.set($event)" (keydown.enter)="saveEdit(todo.id)" />
-                <button class="todo-app__button todo-app__button--primary" type="button"
-                    (click)="saveEdit(todo.id)">Speichern</button>
-                <button class="todo-app__button" type="button" (click)="cancelEdit()">Abbrechen</button>
-            </div>
-            } @else {
-            <label class="todo-app__item-label">
-                <input class="todo-app__checkbox" type="checkbox" [(ngModel)]="todo.done"
-                    (ngModelChange)="onTodoStatusChange()" />
-                {{ todo.title }} - {{ todo.done ? 'Erledigt' : 'Offen' }}
-            </label>
-
-            <div class="todo-app__item-actions">
-                <button class="todo-app__button" type="button" (click)="startEdit(todo)">Bearbeiten</button>
-                <button class="todo-app__button todo-app__button--danger" type="button"
-                    (click)="deleteTodo(todo.id)">Löschen</button>
-            </div>
-            }
-        </li>
-        } @empty {
-        <li class="todo-app__empty">Noch keine Todos vorhanden.</li>
-        }
-    </ul>
-
-    <!-- Fortschrittsanzeige -->
-    <div class="todo-app__progress">
-        <p class="todo-app__progress-text">{{ doneTasks() }} von {{ totalTasks() }} Aufgaben erledigt</p>
-        <div class="todo-app__progress-track" role="progressbar"
-            [attr.aria-valuenow]="progressPercent() | number:'1.0-0'" aria-valuemin="0" aria-valuemax="100">
-            <span class="todo-app__progress-value" [style.width.%]="progressPercent()"></span>
-        </div>
-        <p class="todo-app__progress-text">Fortschritt: {{ progressPercent() | number:'1.0-0' }} %</p>
-    </div>
+    <app-todo-progress [doneTasks]="doneTasks()" [totalTasks]="totalTasks()" [progressPercent]="progressPercent()" />
 </section>

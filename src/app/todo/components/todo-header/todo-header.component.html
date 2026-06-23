@@ -1,0 +1,13 @@
+<header class="todo-header">
+    <!-- Titel der App -->
+    <h1 class="todo-header__title">Todo App</h1>
+
+    <!-- Aktuelles Datum, formatiert als TT.MM.JJJJ -->
+    <p class="todo-header__date">Heute: {{ today() | date:'dd.MM.yyyy' }}</p>
+
+    <!-- Mini-Statistik: total vs. sichtbar -->
+    <div class="todo-header__stats">
+        <p class="todo-header__stat">Anzahl Todos: {{ totalTasks() }}</p>
+        <p class="todo-header__stat">Sichtbar: {{ visibleTasks() }}</p>
+    </div>
+</header>

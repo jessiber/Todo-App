@@ -1,0 +1,13 @@
+<section class="todo-create">
+    <!-- Beschriftung für das Input-Feld -->
+    <label class="todo-create__label" for="todo-input">Neues Todo</label>
+
+    <!-- Zeile mit Textfeld und Submit-Button -->
+    <div class="todo-create__row">
+        <!-- Enter löst submit() genauso aus wie ein Klick auf den Button -->
+        <input #todoInput class="todo-create__input" id="todo-input" type="text" placeholder="Todo eingeben"
+            (keydown.enter)="submit(todoInput)" />
+        <!-- Fügt ein neues Todo hinzu -->
+        <button class="todo-create__button" type="button" (click)="submit(todoInput)">Hinzufügen</button>
+    </div>
+</section>

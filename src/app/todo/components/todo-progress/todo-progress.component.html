@@ -1,0 +1,13 @@
+<section class="todo-progress">
+    <!-- Text mit absolutem Wert: erledigt vs. total -->
+    <p class="todo-progress__text">{{ doneTasks() }} von {{ totalTasks() }} Aufgaben erledigt</p>
+
+    <!-- Fortschrittsbalken mit ARIA-Infos für Screenreader -->
+    <div class="todo-progress__track" role="progressbar" [attr.aria-valuenow]="progressPercent() | number:'1.0-0'"
+        aria-valuemin="0" aria-valuemax="100">
+        <span class="todo-progress__value" [style.width.%]="progressPercent()"></span>
+    </div>
+
+    <!-- Prozentwert als Text -->
+    <p class="todo-progress__text">Fortschritt: {{ progressPercent() | number:'1.0-0' }} %</p>
+</section>

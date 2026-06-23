@@ -1,0 +1,37 @@
+<ul class="todo-list">
+    <!-- Iteriert über alle sichtbaren Todos -->
+    @for (todo of todos(); track todo.id) {
+    <li class="todo-list__item" [class.todo-list__item--done]="todo.done">
+        <!-- Wenn ein Todo im Edit-Modus ist, zeige Input + Speichern/Abbrechen -->
+        @if (editingId() === todo.id) {
+        <div class="todo-list__edit-row">
+            <input class="todo-list__input" type="text" [value]="editDraft()" (input)="onDraftInput($event)"
+                (keydown.enter)="saveEdit.emit(todo.id)" />
+            <button class="todo-list__button todo-list__button--primary" type="button" (click)="saveEdit.emit(todo.id)">
+                Speichern
+            </button>
+            <button class="todo-list__button" type="button" (click)="cancelEdit.emit()">Abbrechen</button>
+        </div>
+        } @else {
+        <!-- Normale Anzeige mit Checkbox und Titel -->
+        <label class="todo-list__label">
+            <input class="todo-list__checkbox" type="checkbox" [checked]="todo.done"
+                (change)="onToggleDone(todo.id, $event)" />
+            {{ todo.title }} - {{ todo.done ? 'Erledigt' : 'Offen' }}
+        </label>
+
+        <!-- Aktionen pro Todo -->
+        <div class="todo-list__actions">
+            <button class="todo-list__button" type="button" (click)="startEdit.emit(todo)">Bearbeiten</button>
+            <button class="todo-list__button todo-list__button--danger" type="button"
+                (click)="deleteTodo.emit(todo.id)">
+                Löschen
+            </button>
+        </div>
+        }
+    </li>
+    } @empty {
+    <!-- Fallback, wenn noch kein Todo erfasst ist -->
+    <li class="todo-list__empty">Noch keine Todos vorhanden.</li>
+    }
+</ul>

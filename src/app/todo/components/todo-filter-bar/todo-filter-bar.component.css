@@ -1,0 +1,79 @@
+/* Gesamte Filter-Bar als Grid mit Abständen */
+.todo-filter-bar {
+    display: grid;
+    gap: 0.75rem;
+    margin: 1rem 0;
+}
+
+/* Zeile für Filter-Buttons und Sammelaktionen */
+.todo-filter-bar__filters,
+.todo-filter-bar__bulk-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+/* Basis-Stil für alle Buttons */
+.todo-filter-bar__button {
+    border: 1px solid #cbd5e1;
+    background: #fff;
+    border-radius: 0.5rem;
+    padding: 0.45rem 0.8rem;
+    cursor: pointer;
+    min-height: 2.5rem;
+}
+
+/* Fokusstil (Tastatur) */
+.todo-filter-bar__button:focus {
+    outline: #0000;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.5);
+}
+
+/* Standard-Optik der Filter-Buttons */
+.todo-filter-bar__button--filter {
+    background: #f8fafc;
+}
+
+/* Aktive Filter-Markierung */
+.todo-filter-bar__button--active {
+    border-color: #1d4ed8;
+    background: #dbeafe;
+    font-weight: 600;
+}
+
+/* Positive Aktionen */
+.todo-filter-bar__button--success {
+    border-color: #005921;
+    color: #005921;
+}
+
+/* Warn-Aktionen */
+.todo-filter-bar__button--warning {
+    border-color: #b45309;
+    color: #b45309;
+}
+
+/* Danger-Aktionen */
+.todo-filter-bar__button--danger {
+    border-color: #b91c1c;
+    color: #b91c1c;
+}
+
+/* Such-Container */
+.todo-filter-bar__search {
+    display: grid;
+    gap: 0.4rem;
+}
+
+/* Label für die Suche */
+.todo-filter-bar__label {
+    font-weight: 600;
+}
+
+/* Input-Feld für den Suchtext */
+.todo-filter-bar__input {
+    border: 1px solid #cbd5e1;
+    border-radius: 0.5rem;
+    padding: 0.55rem 0.75rem;
+    min-height: 2.5rem;
+}

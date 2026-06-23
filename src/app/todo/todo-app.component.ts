@@ -1,20 +1,14 @@
-import { DatePipe, DecimalPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-
-/** Beschreibt einen einzelnen Todo-Eintrag. */
-interface Todo {
-    id: number;
-    title: string;
-    done: boolean;
-}
-
-/** Legt fest, welche Todos sichtbar sind. */
-type TodoFilter = 'all' | 'open' | 'done';
+import { TodoCreateFormComponent } from './components/todo-create-form/todo-create-form.component';
+import { TodoHeaderComponent } from './components/todo-header/todo-header.component';
+import { TodoListComponent } from './components/todo-list/todo-list.component';
+import { TodoProgressComponent } from './components/todo-progress/todo-progress.component';
+import { TodoFilterBarComponent } from './components/todo-filter-bar/todo-filter-bar.component';
+import { Todo, TodoFilter } from './models/todo.model';
 
 @Component({
     selector: 'app-todo-app',
-    imports: [FormsModule, DecimalPipe, DatePipe],
+    imports: [TodoHeaderComponent, TodoCreateFormComponent, TodoFilterBarComponent, TodoListComponent, TodoProgressComponent],
     templateUrl: './todo-app.component.html',
     styleUrl: './todo-app.component.css',
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -69,11 +63,11 @@ export class TodoAppComponent {
         this.activeFilter.set(filter);
     }
 
-    /** Fügt ein neues Todo hinzu, wenn das Eingabefeld nicht leer ist. */
-    addTodo(input: HTMLInputElement): void {
-        const title = input.value.trim();
+    /** Fügt ein neues Todo hinzu. */
+    addTodo(title: string): void {
+        const normalizedTitle = title.trim();
 
-        if (!title) {
+        if (!normalizedTitle) {
             return;
         }
 
@@ -81,17 +75,19 @@ export class TodoAppComponent {
             ...currentTodos,
             {
                 id: Date.now(),
-                title,
+                title: normalizedTitle,
                 done: false
             }
         ]);
-
-        input.value = '';
     }
 
-    /** Übernimmt Statusänderungen aus dem Template in das Signal. */
-    onTodoStatusChange(): void {
-        this.todos.set([...this.todos()]);
+    /** Setzt den Status eines einzelnen Todos. */
+    toggleTodoDone(change: { id: number; done: boolean }): void {
+        this.todos.update((currentTodos) =>
+            currentTodos.map((todo) =>
+                todo.id === change.id ? { ...todo, done: change.done } : todo
+            )
+        );
     }
 
     /** Entfernt ein Todo anhand seiner ID. */

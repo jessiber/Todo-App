@@ -1,0 +1,30 @@
+/* Gesamte Header-Sektion */
+.todo-header {
+    margin-bottom: 1rem;
+}
+
+/* Haupttitel */
+.todo-header__title {
+    margin: 0;
+    font-size: 1.75rem;
+}
+
+/* Datumszeile unter dem Titel */
+.todo-header__date {
+    margin: 0.35rem 0 0;
+    color: #475569;
+}
+
+/* Container für die Kennzahlen */
+.todo-header__stats {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 0.75rem;
+}
+
+/* Einzelne Statistikzeile */
+.todo-header__stat {
+    margin: 0;
+    color: #334155;
+}

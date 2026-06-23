@@ -1,0 +1,43 @@
+<section class="todo-filter-bar" aria-label="Todo-Filter und Aktionen">
+    <!-- Bereich mit den 3 Standardfiltern -->
+    <div class="todo-filter-bar__filters" aria-label="Todo-Filter">
+        <button type="button" class="todo-filter-bar__button todo-filter-bar__button--filter"
+            [class.todo-filter-bar__button--active]="activeFilter() === 'all'" (click)="setFilter('all')">
+            Alle
+        </button>
+        <button type="button" class="todo-filter-bar__button todo-filter-bar__button--filter"
+            [class.todo-filter-bar__button--active]="activeFilter() === 'open'" (click)="setFilter('open')">
+            Offen
+        </button>
+        <button type="button" class="todo-filter-bar__button todo-filter-bar__button--filter"
+            [class.todo-filter-bar__button--active]="activeFilter() === 'done'" (click)="setFilter('done')">
+            Erledigt
+        </button>
+    </div>
+
+    <!-- Sammelaktionen für mehrere Todos auf einmal -->
+    <div class="todo-filter-bar__bulk-actions">
+        <button type="button" class="todo-filter-bar__button todo-filter-bar__button--success"
+            (click)="markAllDone.emit()">
+            Alle erledigen
+        </button>
+        <button type="button" class="todo-filter-bar__button todo-filter-bar__button--warning"
+            (click)="markAllOpen.emit()">
+            Alle nicht erledigt
+        </button>
+        <button type="button" class="todo-filter-bar__button todo-filter-bar__button--danger" (click)="clearAll.emit()">
+            Alle löschen
+        </button>
+        <button type="button" class="todo-filter-bar__button todo-filter-bar__button--danger"
+            (click)="clearDone.emit()">
+            Erledigte löschen
+        </button>
+    </div>
+
+    <!-- Suchfeld zum Filtern nach Titel -->
+    <div class="todo-filter-bar__search">
+        <label class="todo-filter-bar__label" for="search-input">Suche Todos</label>
+        <input class="todo-filter-bar__input" id="search-input" type="text" placeholder="Todo suchen"
+            [ngModel]="searchTerm()" (ngModelChange)="setSearchTerm($event)" />
+    </div>
+</section>
